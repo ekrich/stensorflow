@@ -277,7 +277,7 @@ object tensorflow {
      */
     Ptr[TF_Graph], // cond_graph
     Ptr[TF_Output], // cond_inputs
-    TF_Output,      // cond_output
+    Ptr[TF_Output], // cond_output // TF_output
     /**
      * The loop body graph. The inputs are the current values of the loop
      * variables. The outputs are the updated values of the loop variables.
@@ -522,8 +522,9 @@ object tensorflow {
    *   - An invalid shape is being set (e.g., the shape being set
    *     is incompatible with the existing shape).
    */
+  @name("scalanative_TF_GraphSetTensorShape")
   def TF_GraphSetTensorShape(graph: Ptr[TF_Graph],
-                             output: TF_Output,
+                             output: Ptr[TF_Output], // TF_output
                              dims: Ptr[int64_t],
                              num_dims: CInt,
                              status: Ptr[TF_Status]): Unit = extern
@@ -537,8 +538,9 @@ object tensorflow {
    * Returns an error into `status` if:
    *   - `output` is not in `graph`.
    */
+  @name("scalanative_TF_GraphGetTensorNumDims")
   def TF_GraphGetTensorNumDims(graph: Ptr[TF_Graph],
-                               output: TF_Output,
+                               output: Ptr[TF_Output], // TF_output
                                status: Ptr[TF_Status]): CInt = extern
 
   /**
@@ -555,8 +557,9 @@ object tensorflow {
    *   - `output` is not in `graph`.
    *   - `num_dims` does not match the actual number of dimensions.
    */
+  @name("scalanative_TF_GraphGetTensorShape")
   def TF_GraphGetTensorShape(graph: Ptr[TF_Graph],
-                             output: TF_Output,
+                             output: Ptr[TF_Output], // TF_output
                              dims: Ptr[int64_t],
                              num_dims: CInt,
                              status: Ptr[TF_Status]): Unit = extern
@@ -599,8 +602,10 @@ object tensorflow {
    *   TF_AddInputList(desc, values_inputs, 5);
    * For inputs that take a single tensor.
    */
-  def TF_AddInput(desc: Ptr[TF_OperationDescription], input: TF_Output): Unit =
-    extern
+  @name("scalanative_TF_AddInput")
+  def TF_AddInput(desc: Ptr[TF_OperationDescription],
+                  input: Ptr[TF_Output]): Unit =
+    extern // TF_output
 
   /**
    * For inputs that take a list of tensors.
@@ -828,7 +833,9 @@ object tensorflow {
   /**
    *
    */
-  def TF_OperationOutputType(oper_out: TF_Output): TF_DataType = extern
+  @name("scalanative_TF_OperationOutputType")
+  def TF_OperationOutputType(oper_out: Ptr[TF_Output]): TF_DataType =
+    extern // TF_output
 
   /**
    *
@@ -845,7 +852,8 @@ object tensorflow {
   /**
    *
    */
-  def TF_OperationInputType(oper_in: TF_Input): TF_DataType = extern
+  def TF_OperationInputType(oper_in: Ptr[TF_Input]): TF_DataType =
+    extern // TF_Input
 
   /**
    *
@@ -860,14 +868,18 @@ object tensorflow {
    * There is an edge from producer.oper's output (given by
    * producer.index) to consumer.oper's input (given by consumer.index).
    */
-  def TF_OperationInput(oper_in: TF_Input): TF_Output = extern
+  @name("scalanative_TF_OperationInput")
+  def TF_OperationInput(oper_in: Ptr[TF_Input]): Ptr[TF_Output] =
+    extern // TF_Input TF_Output
 
   /**
    * Get the number of current consumers of a specific output of an
    * operation.  Note that this number can change when new operations
    * are added to the graph.
    */
-  def TF_OperationOutputNumConsumers(oper_out: TF_Output): CInt = extern
+  @name("scalanative_TF_OperationOutputNumConsumers")
+  def TF_OperationOutputNumConsumers(oper_out: Ptr[TF_Output]): CInt =
+    extern // TF_output
 
   /**
    * Get list of all current consumers of a specific output of an
@@ -878,7 +890,8 @@ object tensorflow {
    * an operation.  Returns the number of output consumers (should match
    * TF_OperationOutputNumConsumers(oper_out)).
    */
-  def TF_OperationOutputConsumers(oper_out: TF_Output,
+  @name("scalanative_TF_OperationOutputConsumers")
+  def TF_OperationOutputConsumers(oper_out: Ptr[TF_Output], // TF_output
                                   consumers: Ptr[TF_Input],
                                   max_consumers: CInt): CInt = extern
 
@@ -1239,11 +1252,12 @@ object tensorflow {
    * `dst` references a node already existing in the graph being imported into.
    * `src_name` is copied and has no lifetime requirements.
    */
+  @name("scalanative_TF_ImportGraphDefOptionsAddInputMapping")
   def TF_ImportGraphDefOptionsAddInputMapping(
       opts: Ptr[TF_ImportGraphDefOptions],
       src_name: CString,
       src_index: CInt,
-      dst: TF_Output): Unit = extern
+      dst: Ptr[TF_Output]): Unit = extern // TF_output
 
   /**
    * Set any imported nodes with control input `src_name` to have that input
@@ -1727,8 +1741,9 @@ object tensorflow {
    * returned if something is wrong with the graph or input. Note that this may
    * return false even if no error status is set.
    */
+  @name("scalanative_TF_TryEvaluateConstant")
   def TF_TryEvaluateConstant(graph: Ptr[TF_Graph],
-                             output: TF_Output,
+                             output: Ptr[TF_Output], // TF_output
                              result: Ptr[Ptr[TF_Tensor]],
                              status: Ptr[TF_Status]): CUnsignedChar = extern
 
@@ -2294,8 +2309,8 @@ object tensorflowOps {
     def cond_graph_=(value: Ptr[TF_Graph]): Unit    = !p._2 = value
     def cond_inputs: Ptr[TF_Output]                 = !p._3
     def cond_inputs_=(value: Ptr[TF_Output]): Unit  = !p._3 = value
-    def cond_output: TF_Output                      = !p._4
-    def cond_output_=(value: TF_Output): Unit       = !p._4 = value
+    def cond_output: Ptr[TF_Output]                 = !p._4 // TF_output
+    def cond_output_=(value: Ptr[TF_Output]): Unit  = !p._4 = value // TF_output
     def body_graph: Ptr[TF_Graph]                   = !p._5
     def body_graph_=(value: Ptr[TF_Graph]): Unit    = !p._5 = value
     def body_inputs: Ptr[TF_Output]                 = !p._6

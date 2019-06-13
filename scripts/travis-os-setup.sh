@@ -8,6 +8,7 @@ IFS=$'\n\t'
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew install re2
+    brew install libtensorflow
 else
     # Per https://github.com/scala-native/scala-native/pull/1240/
     sudo apt-get update
@@ -20,7 +21,12 @@ else
     export CXX=clang++
 
     # Install Boehm GC and libunwind
-    sudo apt-get install libgc-dev libunwind8-dev libatlas-base-dev
+    sudo apt-get install libgc-dev libunwind8-dev
+
+    # Install tensorflow
+    sudo curl -O https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.13.1.tar.gz
+    sudo tar -C /usr/local -xzf libtensorflow-cpu-linux-x86_64-1.13.1.tar.gz
+    sudo ldconfig
 
     # Install re2
     # Starting from Ubuntu 16.04 LTS, it'll be available as http://packages.ubuntu.com/xenial/libre2-dev

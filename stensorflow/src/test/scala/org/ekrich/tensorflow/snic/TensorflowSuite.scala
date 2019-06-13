@@ -1,16 +1,16 @@
 package org.ekrich.tensorflow.snic
 
+import scalanative.native._
 import utest._
 import org.ekrich.tensorflow.snic.tensorflow._
 
 object TensorflowSuite extends TestSuite {
 
   val tests = this {
-
-    'test {
+    'TF_Version {
       Zone { implicit z =>
-       
-        assert(3.0 == 3.0)
+        println(s"Tensorflow version: ${fromCString(TF_Version())}")
+        assert("1.13.1" == fromCString(TF_Version()))
       }
     }
   }

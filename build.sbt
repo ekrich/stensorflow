@@ -37,7 +37,7 @@ lazy val commonSettings = Seq(
   libraryDependencies += "com.lihaoyi" %%% "utest" % "0.6.8" % Test,
   testFrameworks += new TestFramework("utest.runner.Framework"),
   scalaVersion := scala211,
-  logLevel := Level.Debug, // Info, Debug
+  logLevel := Level.Info, // Info, Debug
   nativeLinkStubs := true
 //  nativeMode := "release"
 )
