@@ -1,6 +1,6 @@
 package org.ekrich.tensorflow.snic
 
-import scalanative.native._
+import scalanative.unsafe._
 import utest._
 import org.ekrich.tensorflow.snic.tensorflow._
 

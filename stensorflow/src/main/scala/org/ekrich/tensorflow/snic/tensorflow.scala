@@ -15,8 +15,7 @@
  */
 package org.ekrich.tensorflow.snic
 
-import scala.scalanative._
-import scala.scalanative.native._
+import scalanative.unsafe._
 
 /**
  * Enums used in the API
@@ -207,7 +206,7 @@ object tensorflow {
    * deallocate the block by setting the `data_deallocator` function pointer.
    */
   type TF_Buffer =
-    CStruct3[Ptr[Byte], CSize, CFunctionPtr2[Ptr[Byte], CSize, Unit]]
+    CStruct3[Ptr[Byte], CSize, CFuncPtr2[Ptr[Byte], CSize, Unit]]
 
   /**
    * Represents a specific input of an operation.
@@ -361,14 +360,13 @@ object tensorflow {
    *  (data, len) is inconsistent with a tensor of the given TF_DataType
    *  and the shape specified by (dima, num_dims).
    */
-  def TF_NewTensor(
-      value: TF_DataType,
-      dims: Ptr[int64_t],
-      num_dims: CInt,
-      data: Ptr[Byte],
-      len: CSize,
-      deallocator: CFunctionPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit],
-      deallocator_arg: Ptr[Byte]): Ptr[TF_Tensor] = extern
+  def TF_NewTensor(value: TF_DataType,
+                   dims: Ptr[int64_t],
+                   num_dims: CInt,
+                   data: Ptr[Byte],
+                   len: CSize,
+                   deallocator: CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit],
+                   deallocator_arg: Ptr[Byte]): Ptr[TF_Tensor] = extern
 
   /**
    * Allocate and return a new Tensor.
@@ -2255,33 +2253,33 @@ import tensorflow._
 object tensorflowOps {
 
   implicit class TF_Buffer_ops(val p: Ptr[TF_Buffer]) extends AnyVal {
-    def data: Ptr[Byte]                                         = !p._1
-    def data_=(value: Ptr[Byte]): Unit                          = !p._1 = value
-    def length: CSize                                           = !p._2
-    def length_=(value: CSize): Unit                            = !p._2 = value
-    def data_deallocator: CFunctionPtr2[Ptr[Byte], CSize, Unit] = !p._3
-    def data_deallocator_=(value: CFunctionPtr2[Ptr[Byte], CSize, Unit]): Unit =
-      !p._3 = value
+    def data: Ptr[Byte]                                     = p._1
+    def data_=(value: Ptr[Byte]): Unit                      = p._1 = value
+    def length: CSize                                       = p._2
+    def length_=(value: CSize): Unit                        = p._2 = value
+    def data_deallocator: CFuncPtr2[Ptr[Byte], CSize, Unit] = p._3
+    def data_deallocator_=(value: CFuncPtr2[Ptr[Byte], CSize, Unit]): Unit =
+      p._3 = value
   }
 
   def TF_Buffer()(implicit z: Zone): Ptr[TF_Buffer] =
     alloc[TF_Buffer]
 
   implicit class TF_Input_ops(val p: Ptr[TF_Input]) extends AnyVal {
-    def oper: Ptr[TF_Operation]                = !p._1
-    def oper_=(value: Ptr[TF_Operation]): Unit = !p._1 = value
-    def index: CInt                            = !p._2
-    def index_=(value: CInt): Unit             = !p._2 = value
+    def oper: Ptr[TF_Operation]                = p._1
+    def oper_=(value: Ptr[TF_Operation]): Unit = p._1 = value
+    def index: CInt                            = p._2
+    def index_=(value: CInt): Unit             = p._2 = value
   }
 
   def TF_Input()(implicit z: Zone): Ptr[TF_Input] =
     alloc[TF_Input]
 
   implicit class TF_Output_ops(val p: Ptr[TF_Output]) extends AnyVal {
-    def oper: Ptr[TF_Operation]                = !p._1
-    def oper_=(value: Ptr[TF_Operation]): Unit = !p._1 = value
-    def index: CInt                            = !p._2
-    def index_=(value: CInt): Unit             = !p._2 = value
+    def oper: Ptr[TF_Operation]                = p._1
+    def oper_=(value: Ptr[TF_Operation]): Unit = p._1 = value
+    def index: CInt                            = p._2
+    def index_=(value: CInt): Unit             = p._2 = value
   }
 
   def TF_Output()(implicit z: Zone): Ptr[TF_Output] =
@@ -2289,36 +2287,36 @@ object tensorflowOps {
 
   implicit class TF_AttrMetadata_ops(val p: Ptr[TF_AttrMetadata])
       extends AnyVal {
-    def is_list: CUnsignedChar                = !p._1
-    def is_list_=(value: CUnsignedChar): Unit = !p._1 = value
-    def list_size: int64_t                    = !p._2
-    def list_size_=(value: int64_t): Unit     = !p._2 = value
-    def `type`: TF_AttrType                   = !p._3
-    def `type_=`(value: TF_AttrType): Unit    = !p._3 = value
-    def total_size: int64_t                   = !p._4
-    def total_size_=(value: int64_t): Unit    = !p._4 = value
+    def is_list: CUnsignedChar                = p._1
+    def is_list_=(value: CUnsignedChar): Unit = p._1 = value
+    def list_size: int64_t                    = p._2
+    def list_size_=(value: int64_t): Unit     = p._2 = value
+    def `type`: TF_AttrType                   = p._3
+    def `type_=`(value: TF_AttrType): Unit    = p._3 = value
+    def total_size: int64_t                   = p._4
+    def total_size_=(value: int64_t): Unit    = p._4 = value
   }
 
   def TF_AttrMetadata()(implicit z: Zone): Ptr[TF_AttrMetadata] =
     alloc[TF_AttrMetadata]
 
   implicit class TF_WhileParams_ops(val p: Ptr[TF_WhileParams]) extends AnyVal {
-    def ninputs: CInt                               = !p._1
-    def ninputs_=(value: CInt): Unit                = !p._1 = value
-    def cond_graph: Ptr[TF_Graph]                   = !p._2
-    def cond_graph_=(value: Ptr[TF_Graph]): Unit    = !p._2 = value
-    def cond_inputs: Ptr[TF_Output]                 = !p._3
-    def cond_inputs_=(value: Ptr[TF_Output]): Unit  = !p._3 = value
-    def cond_output: Ptr[TF_Output]                 = !p._4 // TF_output
-    def cond_output_=(value: Ptr[TF_Output]): Unit  = !p._4 = value // TF_output
-    def body_graph: Ptr[TF_Graph]                   = !p._5
-    def body_graph_=(value: Ptr[TF_Graph]): Unit    = !p._5 = value
-    def body_inputs: Ptr[TF_Output]                 = !p._6
-    def body_inputs_=(value: Ptr[TF_Output]): Unit  = !p._6 = value
-    def body_outputs: Ptr[TF_Output]                = !p._7
-    def body_outputs_=(value: Ptr[TF_Output]): Unit = !p._7 = value
-    def name: CString                               = !p._8
-    def name_=(value: CString): Unit                = !p._8 = value
+    def ninputs: CInt                               = p._1
+    def ninputs_=(value: CInt): Unit                = p._1 = value
+    def cond_graph: Ptr[TF_Graph]                   = p._2
+    def cond_graph_=(value: Ptr[TF_Graph]): Unit    = p._2 = value
+    def cond_inputs: Ptr[TF_Output]                 = p._3
+    def cond_inputs_=(value: Ptr[TF_Output]): Unit  = p._3 = value
+    def cond_output: Ptr[TF_Output]                 = p._4 // TF_output
+    def cond_output_=(value: Ptr[TF_Output]): Unit  = p._4 = value // TF_output
+    def body_graph: Ptr[TF_Graph]                   = p._5
+    def body_graph_=(value: Ptr[TF_Graph]): Unit    = p._5 = value
+    def body_inputs: Ptr[TF_Output]                 = p._6
+    def body_inputs_=(value: Ptr[TF_Output]): Unit  = p._6 = value
+    def body_outputs: Ptr[TF_Output]                = p._7
+    def body_outputs_=(value: Ptr[TF_Output]): Unit = p._7 = value
+    def name: CString                               = p._8
+    def name_=(value: CString): Unit                = p._8 = value
   }
 
   def TF_WhileParams()(implicit z: Zone): Ptr[TF_WhileParams] =
