@@ -57,6 +57,7 @@ lazy val root = project
 lazy val stensorflow = project
   .in(file("stensorflow"))
   .settings(
-    commonSettings
+    commonSettings,
+    updateOptions := updateOptions.value.withLatestSnapshots(false),
   )
   .enablePlugins(ScalaNativePlugin)

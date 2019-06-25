@@ -3,10 +3,14 @@
  * Converter functions for TF_Input and TF_Output pass by reference
  */
 
-#include <tensorflow.h>
+#include <tensorflow/c/c_api.h>
 
-TF_Output *scalanative_TF_OperationInput(TF_Input *oper_in) {
-  return &TF_OperationInput(*oper_in);
+TF_Output *scalanative_TF_OperationInput(TF_Input *oper_in,
+                                         TF_Output *oper_out) {
+  TF_Output out = TF_OperationInput(*oper_in);
+  oper_out->index = out.index;
+  oper_out->oper = out.oper;
+  return oper_out;
 }
 
 int scalanative_TF_OperationOutputNumConsumers(TF_Output *oper_out) {
@@ -46,7 +50,7 @@ int scalanative_TF_GraphGetTensorNumDims(TF_Graph *graph, TF_Output *output,
 
 void scalanative_TF_GraphGetTensorShape(TF_Graph *graph, TF_Output *output,
                                         int64_t *dims, int num_dims,
-                                        TF_Status status) {
+                                        TF_Status *status) {
   return TF_GraphGetTensorShape(graph, *output, dims, num_dims, status);
 }
 

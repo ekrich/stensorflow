@@ -865,9 +865,13 @@ object tensorflow {
    *   TF_Output producer = TF_OperationInput(consumer);
    * There is an edge from producer.oper's output (given by
    * producer.index) to consumer.oper's input (given by consumer.index).
+   *
+   * Note: for Scala Native we need to pass an additonal Ptr[TF_Output]
+   * to capture the original rvalue (stack, pass by value).
    */
   @name("scalanative_TF_OperationInput")
-  def TF_OperationInput(oper_in: Ptr[TF_Input]): Ptr[TF_Output] =
+  def TF_OperationInput(oper_in: Ptr[TF_Input],
+                        oper_out: Ptr[TF_Output]): Ptr[TF_Output] =
     extern // TF_Input TF_Output
 
   /**
