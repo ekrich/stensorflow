@@ -358,7 +358,7 @@ object tensorflow {
    *
    *  May return NULL (and invoke the deallocator) if the provided data buffer
    *  (data, len) is inconsistent with a tensor of the given TF_DataType
-   *  and the shape specified by (dima, num_dims).
+   *  and the shape specified by (dims, num_dims).
    */
   def TF_NewTensor(value: TF_DataType,
                    dims: Ptr[int64_t],

@@ -9,17 +9,14 @@ import scalanative.unsafe.CFuncPtr3
 
 object TensorflowSuite extends TestSuite {
 
-  // def DeallocateTensor(data: Ptr[Byte], sz: CSize, unk: Ptr[Byte]): Unit = {
-  //   free(data)
-  //   println("Deallocate tensor")
-  // }
-
   val DeallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
     def apply(data: Ptr[Byte], sz: CSize, unk: Ptr[Byte]): Unit = {
       //free(data)
       println("Free Tensor")
     }
   }
+
+  val dealloc = DeallocateTensor _
 
   val tests = this {
     'TF_Version {
@@ -34,20 +31,16 @@ object TensorflowSuite extends TestSuite {
         assert("1.13.1" == fromCString(TF_Version()))
 
         // handle dims
-        val dimsVals = Seq(1, 5, 12)
-        val dimsSize = dimsVals.size
-        val dims     = alloc[int64_t](sizeof[int64_t] * dimsSize)
+        val dimsVals  = Seq(1, 5, 12)
+        val dimsSize  = dimsVals.size
+        val dims      = alloc[int64_t](dimsSize)
+
+        // copy to memory
         for (i <- 0 until dimsSize) {
           dims(i) = dimsVals(i)
         }
 
         // handle data based on dims
-        var dataSize = sizeof[CFloat]
-        for (i <- dimsVals) dataSize *= i
-        println(s"data_size: $dataSize")
-
-        val data = alloc[CFloat](dataSize)
-
         val dataVals = Seq(
           -0.4809832f, -0.3770838f, 0.1743573f, 0.7720509f, -0.4064746f,
           0.0116595f, 0.0051413f, 0.9135732f, 0.7197526f, -0.0400658f,
@@ -62,50 +55,75 @@ object TensorflowSuite extends TestSuite {
           0.1748378f, 0.7718275f, -0.4073670f, 0.0107582f, 0.0062978f,
           0.9131795f, 0.7187147f, -0.0394935f, 0.1184392f, -0.6840039f
         )
+
+        // dimensions need to match data
+        val dataSize  = dimsVals.reduceLeft(_ * _)
+        val dataBytes = dataSize * sizeof[CFloat]
+        val data      = alloc[CFloat](dataSize)
+
         // copy to memory
-        for (i <- 0 until dataVals.size) {
+        for (i <- 0 until dataSize) {
           data(i) = dataVals(i)
         }
 
         println(dimsVals)
+        println(dimsSize)
         println(dims)
 
         println(dataVals)
+        println(dataSize)
+        println(dataBytes)
         println(data)
 
-        // /**
-        //  * Return a new tensor that holds the bytes data[0,len-1].
-        //  *
-        //  *  The data will be deallocated by a subsequent call to TF_DeleteTensor via:
-        //  *       (*deallocator)(data, len, deallocator_arg)
-        //  *  Clients must provide a custom deallocator function so they can pass in
-        //  *  memory managed by something like numpy.
-        //  *
-        //  *  May return NULL (and invoke the deallocator) if the provided data buffer
-        //  *  (data, len) is inconsistent with a tensor of the given TF_DataType
-        //  *  and the shape specified by (dima, num_dims).
-        //  */
-        // def TF_NewTensor(
-        //     value: TF_DataType,
-        //     dims: Ptr[int64_t],
-        //     num_dims: CInt,
-        //     data: Ptr[Byte],
-        //     len: CSize,
-        //     deallocator: CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit],
-        //     deallocator_arg: Ptr[Byte]): Ptr[TF_Tensor] = extern
+        // val nullptr = alloc[Byte]
+        // !nullptr = 0x00
 
-        val nul = alloc[Byte]
-        !nul = 0x00
-
-        val tensor = TF_NewTensor(TF_FLOAT,
-                                  dims,
-                                  dimsSize,
-                                  data.asInstanceOf[Ptr[Byte]],
-                                  dataSize,
-                                  DeallocateTensor,
-                                  nul);
+        val tensor =
+          TF_NewTensor(TF_FLOAT,
+                       dims,
+                       dimsSize,
+                       data.asInstanceOf[Ptr[Byte]],
+                       dataBytes,
+                       DeallocateTensor,
+                       null);
 
         println(s"Tensor: $tensor")
+
+        if (tensor == null) {
+          println("Wrong create tensor")
+        }
+
+        if (TF_TensorType(tensor) != TF_FLOAT) {
+          println("Wrong tensor type")
+        }
+
+        if (TF_NumDims(tensor) != dimsSize) {
+          println(s"Wrong number of dimensions")
+        }
+
+        for (i <- 0 until dimsSize) {
+          if (TF_Dim(tensor, i) != dims(i)) {
+            println(s"Wrong dimension size for dim: $i")
+          }
+        }
+
+        if (TF_TensorByteSize(tensor) != dataBytes) {
+          println("Wrong tensor byte size")
+        }
+
+        val tensor_data = TF_TensorData(tensor).asInstanceOf[Ptr[Float]]
+
+        if (tensor_data == null) {
+          println("Wrong data tensor")
+        }
+
+        for (i <- 0 until dataSize) {
+          if (tensor_data(i) != data(i)) {
+            println(s"Element: $i does not match")
+          }
+        }
+
+        println("Success create tensor")
         TF_DeleteTensor(tensor)
         println("Done.")
       }

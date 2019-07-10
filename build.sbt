@@ -58,6 +58,7 @@ lazy val stensorflow = project
   .in(file("stensorflow"))
   .settings(
     commonSettings,
-    updateOptions := updateOptions.value.withLatestSnapshots(false),
+    nativeCodeInclude := true,
+    //updateOptions := updateOptions.value.withLatestSnapshots(false),
   )
   .enablePlugins(ScalaNativePlugin)
