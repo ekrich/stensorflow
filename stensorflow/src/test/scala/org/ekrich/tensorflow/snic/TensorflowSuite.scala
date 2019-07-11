@@ -9,14 +9,12 @@ import scalanative.unsafe.CFuncPtr3
 
 object TensorflowSuite extends TestSuite {
 
-  val DeallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
-    def apply(data: Ptr[Byte], sz: CSize, unk: Ptr[Byte]): Unit = {
+  val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
+    def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
       //free(data)
       println("Free Tensor")
     }
   }
-
-  val dealloc = DeallocateTensor _
 
   val tests = this {
     'TF_Version {
@@ -31,9 +29,9 @@ object TensorflowSuite extends TestSuite {
         assert("1.13.1" == fromCString(TF_Version()))
 
         // handle dims
-        val dimsVals  = Seq(1, 5, 12)
-        val dimsSize  = dimsVals.size
-        val dims      = alloc[int64_t](dimsSize)
+        val dimsVals = Seq(1, 5, 12)
+        val dimsSize = dimsVals.size
+        val dims     = alloc[int64_t](dimsSize)
 
         // copy to memory
         for (i <- 0 until dimsSize) {
@@ -75,8 +73,9 @@ object TensorflowSuite extends TestSuite {
         println(dataBytes)
         println(data)
 
-        // val nullptr = alloc[Byte]
-        // !nullptr = 0x00
+        // same as null?
+        val nullptr = alloc[Byte]
+        !nullptr = 0x00
 
         val tensor =
           TF_NewTensor(TF_FLOAT,
@@ -84,8 +83,8 @@ object TensorflowSuite extends TestSuite {
                        dimsSize,
                        data.asInstanceOf[Ptr[Byte]],
                        dataBytes,
-                       DeallocateTensor,
-                       null);
+                       deallocateTensor,
+                       nullptr);
 
         println(s"Tensor: $tensor")
 
@@ -124,6 +123,7 @@ object TensorflowSuite extends TestSuite {
         }
 
         println("Success create tensor")
+        //wait(100)
         TF_DeleteTensor(tensor)
         println("Done.")
       }
