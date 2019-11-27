@@ -9,6 +9,8 @@ import scalanative.unsafe.CFuncPtr3
 
 object TensorflowSuite extends TestSuite {
 
+  val tfVersion = "1.14.0"
+
   val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
     def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
       //free(data)
@@ -20,13 +22,13 @@ object TensorflowSuite extends TestSuite {
     'TF_Version {
       Zone { implicit z =>
         println(s"Tensorflow version: ${fromCString(TF_Version())}")
-        assert("1.13.1" == fromCString(TF_Version()))
+        assert(tfVersion == fromCString(TF_Version()))
       }
     }
     'TF_Example {
       Zone { implicit z =>
         println("Running example...")
-        assert("1.13.1" == fromCString(TF_Version()))
+        assert(tfVersion == fromCString(TF_Version()))
 
         // handle dims
         val dimsVals = Seq(1, 5, 12)
