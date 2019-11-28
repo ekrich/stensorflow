@@ -84,6 +84,7 @@ object TensorflowSuite extends TestSuite {
         val nullptr = alloc[Byte]
         !nullptr = 0x00
 
+        println("Create Tensor")
         val tensor =
           TF_NewTensor(TF_FLOAT,
                        dims,
