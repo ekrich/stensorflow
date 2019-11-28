@@ -4,7 +4,7 @@ import scalanative.unsafe._
 import utest._
 import org.ekrich.tensorflow.snic.tensorflow._
 import org.ekrich.tensorflow.snic.tensorflowEnums._
-import scalanative.libc.stdlib._
+import scalanative.libc.stdlib
 import scalanative.unsafe.CFuncPtr3
 
 object TensorflowSuite extends TestSuite {
@@ -13,7 +13,9 @@ object TensorflowSuite extends TestSuite {
 
   val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
     def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
-      //free(data)
+      // Zone will free data allocated in a Zone
+      // This should work but function get called on assignment when creating the tensor?
+      //stdlib.free(data)
       println("Free Tensor")
     }
   }
@@ -31,9 +33,11 @@ object TensorflowSuite extends TestSuite {
         assert(tfVersion == fromCString(TF_Version()))
 
         // handle dims
-        val dimsVals = Seq(1, 5, 12)
-        val dimsSize = dimsVals.size
-        val dims     = alloc[int64_t](dimsSize)
+        val dimsVals  = Seq(1, 5, 12)
+        val dimsSize  = dimsVals.size
+        val dimsBytes = dimsSize * sizeof[int64_t]
+        val dims      = alloc[int64_t](dimsSize)
+        //val dims      = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
         // copy to memory
         for (i <- 0 until dimsSize) {
@@ -60,6 +64,7 @@ object TensorflowSuite extends TestSuite {
         val dataSize  = dimsVals.reduceLeft(_ * _)
         val dataBytes = dataSize * sizeof[CFloat]
         val data      = alloc[CFloat](dataSize)
+        //val data      = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
         // copy to memory
         for (i <- 0 until dataSize) {
@@ -125,7 +130,6 @@ object TensorflowSuite extends TestSuite {
         }
 
         println("Success create tensor")
-        //wait(100)
         TF_DeleteTensor(tensor)
         println("Done.")
       }
