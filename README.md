@@ -1,8 +1,7 @@
 # stensorflow - Scala Native TensorFlow
 [![Build Status](https://travis-ci.org/ekrich/sblas.svg?branch=master)](https://travis-ci.org/ekrich/stensorflow)
 
-This library implements TensorFlow version `1.13.1` in the form of C TensorFlow
-API adapted for the Scala Native platform. 
+This library implements the C TensorFlow API adapted for the Scala Native platform.
 
 Scala Native is a unique platform that
 marries the high level language of Scala but compiles to native code with a
@@ -17,7 +16,7 @@ converted to [LLVM IR](http://llvm.org/). Finally LLVM code is optimized
 and compiled by [Clang](http://clang.llvm.org/) to produce a native executable.
 
 ## Getting started
-[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.3_2.11.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.3_2.11)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.4_2.11.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.4_2.11)
 
 If you are already familiar with Scala Native you can jump right in by adding the following dependency in your `sbt` build file.
 
@@ -43,11 +42,11 @@ which will install into the `/usr/local/Cellar/libtensorflow/<version>` director
 ```
 $ brew install libtensorflow
 ```
-
+* The current TensorFlow version is `2.0.0`.
 * Other OSes need to have `libtensorflow` available on the system.
 
 ## Usage and Help
-[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.3_2.11.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.3_2.11)
+[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.3_2.11.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.4_2.11)
 [![Join chat https://gitter.im/ekrich/stensorflow](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekrich/stensorflow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Reference the link above for Scaladoc. The documentation is a little sparse but hopefully will improve with time.
@@ -65,6 +64,7 @@ In addition, look at the `v0.1.0` [stensorflow unit tests](https://github.com/ek
 ## TensorFlow References and External Documentation
 
 [TensorFlow Website](https://www.tensorflow.org/)
+[TensorFlow for JVM using JNI](http://platanios.org/tensorflow_scala/)
 
 ## Versions
 
