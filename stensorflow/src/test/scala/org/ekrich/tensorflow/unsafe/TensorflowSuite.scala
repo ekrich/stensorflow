@@ -1,9 +1,9 @@
-package org.ekrich.tensorflow.snic
+package org.ekrich.tensorflow.unsafe
 
 import scalanative.unsafe._
 import utest._
-import org.ekrich.tensorflow.snic.tensorflow._
-import org.ekrich.tensorflow.snic.tensorflowEnums._
+import org.ekrich.tensorflow.unsafe.tensorflow._
+import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 import scalanative.libc.stdlib
 import scalanative.unsafe.CFuncPtr3
 
