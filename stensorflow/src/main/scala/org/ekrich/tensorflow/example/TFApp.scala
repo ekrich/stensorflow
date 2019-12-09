@@ -12,10 +12,8 @@ object TFApp {
 
   val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
     def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
-      // Zone will free data allocated in a Zone
-      // This should work but function get called on assignment when creating the tensor?
-      //stdlib.free(data)
-      println("Free Tensor")
+      stdlib.free(data)
+      println("Free Original Tensor")
     }
   }
 
@@ -57,8 +55,8 @@ object TFApp {
       // dimensions need to match data
       val dataSize  = dimsVals.reduceLeft(_ * _)
       val dataBytes = dataSize * sizeof[CFloat]
-      val data      = alloc[CFloat](dataSize)
-      //val data      = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
+      //val data      = alloc[CFloat](dataSize)
+      val data      = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
       // copy to memory
       for (i <- 0 until dataSize) {
@@ -119,7 +117,7 @@ object TFApp {
       }
 
       for (i <- 0 until dataSize) {
-        if (tensor_data(i) != data(i)) {
+        if (tensor_data(i) != dataVals(i)) {
           println(s"Element: $i does not match")
         }
       }
