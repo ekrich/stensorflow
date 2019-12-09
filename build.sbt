@@ -1,3 +1,5 @@
+addCommandAlias("run", "stensorflow/run")
+
 lazy val prevVersion = "0.1.0"
 lazy val nextVersion = "0.1.0"
 
@@ -34,10 +36,10 @@ def versionFmt(out: sbtdynver.GitDescribeOutput): String = {
 }
 
 lazy val commonSettings = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "utest" % "0.6.8" % Test,
-  testFrameworks += new TestFramework("utest.runner.Framework"),
+  libraryDependencies += "com.github.lolgab" %% "minitest_native0.4.0-M2" % "2.5.0-5f3852e" % Test,
+  testFrameworks += new TestFramework("minitest.runner.Framework"),
   scalaVersion := scala211,
-  logLevel := Level.Info, // Info, Debug
+  logLevel := Level.Debug, // Info, Debug
   nativeLinkStubs := true
 //  nativeMode := "release"
 )
@@ -57,6 +59,7 @@ lazy val root = project
 lazy val stensorflow = project
   .in(file("stensorflow"))
   .settings(
-    commonSettings
+    commonSettings,
+    nativeCodeInclude := true
   )
   .enablePlugins(ScalaNativePlugin)
