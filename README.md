@@ -63,7 +63,7 @@ In addition, look at the `v0.1.0` [stensorflow unit tests](https://github.com/ek
 
 ## TensorFlow References and External Documentation
 
-[TensorFlow Website](https://www.tensorflow.org/)
+[TensorFlow Website](https://www.tensorflow.org/)<br/>
 [TensorFlow for JVM using JNI](http://platanios.org/tensorflow_scala/)
 
 ## Versions
