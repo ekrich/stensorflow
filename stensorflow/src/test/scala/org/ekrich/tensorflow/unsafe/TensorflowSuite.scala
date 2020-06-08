@@ -11,7 +11,7 @@ import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
 object TensorflowSuite extends SimpleTestSuite {
 
-  val tfVersion = "2.0.0"
+  val tfVersion = "2.1.0"
 
   val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
     def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
