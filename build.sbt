@@ -41,7 +41,7 @@ lazy val commonSettings = Seq(
   scalaVersion := scala211,
   logLevel := Level.Debug, // Info, Debug
   nativeLinkStubs := true
-//  nativeMode := "release"
+//  nativeMode := "release-fast"
 )
 
 lazy val root = project
@@ -59,7 +59,6 @@ lazy val root = project
 lazy val stensorflow = project
   .in(file("stensorflow"))
   .settings(
-    commonSettings,
-    nativeCodeInclude := true
+    commonSettings
   )
   .enablePlugins(ScalaNativePlugin)
