@@ -1,5 +1,6 @@
+# sbt
 target/
-*.iml
-bin/.coursier
-bin/.scalafmt*
-.vscode/
+
+# Metals/VSCode
+.vscode
+metals.sbt
