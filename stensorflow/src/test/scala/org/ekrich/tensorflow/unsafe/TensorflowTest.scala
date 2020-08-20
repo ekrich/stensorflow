@@ -1,6 +1,7 @@
 package org.ekrich.tensorflow.unsafe
 
-import minitest._
+import org.junit.Assert._
+import org.junit.Test
 
 import scalanative.libc.stdlib
 import scala.scalanative.unsafe.{CFloat, CFuncPtr3, CSize, fromCString}
@@ -9,7 +10,7 @@ import scala.scalanative.unsafe.{Ptr, Zone, alloc, sizeof}
 import org.ekrich.tensorflow.unsafe.tensorflow._
 import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
-object TensorflowSuite extends SimpleTestSuite {
+class TensorflowTest {
 
   val tfVersion = "2.2.0"
 
@@ -20,13 +21,13 @@ object TensorflowSuite extends SimpleTestSuite {
     }
   }
 
-  test("TF_Version") {
+  @Test def TF_VersionTest(): Unit = {
     Zone { implicit z =>
       println(s"Tensorflow version: ${fromCString(TF_Version())}")
       assert(tfVersion == fromCString(TF_Version()))
     }
   }
-  test("TF_Example") {
+  @Test def TF_ExampleTest(): Unit = {
     Zone { implicit z =>
       println("Running example...")
       assert(tfVersion == fromCString(TF_Version()))

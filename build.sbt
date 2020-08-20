@@ -36,10 +36,12 @@ def versionFmt(out: sbtdynver.GitDescribeOutput): String = {
 }
 
 lazy val commonSettings = Seq(
-  libraryDependencies += "com.github.lolgab" %% "minitest_native0.4.0-M2" % "2.5.0-5f3852e" % Test,
-  testFrameworks += new TestFramework("minitest.runner.Framework"),
+  addCompilerPlugin(
+    "org.scala-native" % "junit-plugin" % "0.4.0-SNAPSHOT" cross CrossVersion.full),
+  libraryDependencies += "org.scala-native" %%% "junit-runtime" % "0.4.0-SNAPSHOT",
+  testOptions += Tests.Argument(TestFrameworks.JUnit, "-a", "-s", "-v"),
   scalaVersion := scala211,
-  logLevel := Level.Debug, // Info, Debug
+  logLevel := Level.Info, // Info, Debug
   nativeLinkStubs := true
 //  nativeMode := "release-fast"
 )
