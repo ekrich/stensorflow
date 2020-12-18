@@ -8,7 +8,7 @@ import scalanative.unsafe.CFuncPtr3
 
 object TFApp {
 
-  val tfVersion = "2.2.0"
+  val tfVersion = "2.3.0"
 
   val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
     def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
@@ -27,7 +27,7 @@ object TFApp {
       // handle dims
       val dimsVals  = Seq(1, 5, 12)
       val dimsSize  = dimsVals.size
-      val dimsBytes = dimsSize * sizeof[int64_t]
+      //val dimsBytes = dimsSize * sizeof[int64_t]
       val dims      = alloc[int64_t](dimsSize)
       //val dims      = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
@@ -55,6 +55,7 @@ object TFApp {
       // dimensions need to match data
       val dataSize  = dimsVals.reduceLeft(_ * _)
       val dataBytes = dataSize * sizeof[CFloat]
+      // can't use because model runs after Zone exits
       //val data      = alloc[CFloat](dataSize)
       val data      = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
