@@ -1,11 +1,8 @@
 addCommandAlias("run", "stensorflow/run")
 
-lazy val prevVersion = "0.1.0"
-lazy val nextVersion = "0.1.0"
+val scala211 = "2.11.12"
 
-lazy val scala211 = "2.11.12"
-
-scalaVersion := scala211
+ThisBuild / scalaVersion := scala211
 
 inThisBuild(
   List(
@@ -21,29 +18,17 @@ inThisBuild(
         email = "ekrichardson@gmail.com",
         url = url("http://github.ekrich.org/")
       )
-    ),
-    version := dynverGitDescribeOutput.value.mkVersion(versionFmt, ""),
-    dynver := sbtdynver.DynVer
-      .getGitDescribeOutput(new java.util.Date)
-      .mkVersion(versionFmt, "")
-  ))
-
-// stable snapshot is not great for publish local
-def versionFmt(out: sbtdynver.GitDescribeOutput): String = {
-  val tag = out.ref.dropV.value
-  if (out.isCleanAfterTag) tag
-  else nextVersion + "-SNAPSHOT"
-}
+    )
+  )
+)
 
 lazy val commonSettings = Seq(
   addCompilerPlugin(
-    "org.scala-native" % "junit-plugin" % "0.4.0-SNAPSHOT" cross CrossVersion.full),
-  libraryDependencies += "org.scala-native" %%% "junit-runtime" % "0.4.0-SNAPSHOT",
+    "org.scala-native" % "junit-plugin" % nativeVersion cross CrossVersion.full),
+  libraryDependencies += "org.scala-native" %%% "junit-runtime" % nativeVersion,
   testOptions += Tests.Argument(TestFrameworks.JUnit, "-a", "-s", "-v"),
-  scalaVersion := scala211,
   logLevel := Level.Info, // Info, Debug
   nativeLinkStubs := true
-//  nativeMode := "release-fast"
 )
 
 lazy val root = project

@@ -1,6 +1,7 @@
 package org.ekrich.tensorflow.example
 
 import scalanative.unsafe._
+import scalanative.unsigned._
 import org.ekrich.tensorflow.unsafe.tensorflow._
 import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 import scalanative.libc.stdlib
@@ -8,14 +9,15 @@ import scalanative.unsafe.CFuncPtr3
 
 object TFApp {
 
-  val tfVersion = "2.3.0"
+  val tfVersion = "2.4.0"
 
-  val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
-    def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
+  type DeallocateTensor = CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit]
+
+  val deallocateTensor: DeallocateTensor =
+    (data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]) => {
       stdlib.free(data)
       println("Free Original Tensor")
     }
-  }
 
   def main(args: Array[String]): Unit = {
 
@@ -25,10 +27,10 @@ object TFApp {
       assert(tfVersion == fromCString(TF_Version()))
 
       // handle dims
-      val dimsVals  = Seq(1, 5, 12)
-      val dimsSize  = dimsVals.size
+      val dimsVals = Seq(1, 5, 12)
+      val dimsSize = dimsVals.size
       //val dimsBytes = dimsSize * sizeof[int64_t]
-      val dims      = alloc[int64_t](dimsSize)
+      val dims = alloc[int64_t](dimsSize)
       //val dims      = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
       // copy to memory
@@ -54,10 +56,10 @@ object TFApp {
 
       // dimensions need to match data
       val dataSize  = dimsVals.reduceLeft(_ * _)
-      val dataBytes = dataSize * sizeof[CFloat]
+      val dataBytes = dataSize.toULong * sizeof[CFloat]
       // can't use because model runs after Zone exits
       //val data      = alloc[CFloat](dataSize)
-      val data      = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
+      val data = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
       // copy to memory
       for (i <- 0 until dataSize) {
