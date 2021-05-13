@@ -1,8 +1,14 @@
 addCommandAlias("run", "stensorflow/run")
 
 val scala211 = "2.11.12"
+val scala212 = "2.12.13"
+val scala213 = "2.13.5"
+val scala300 = "3.0.0"
 
-ThisBuild / scalaVersion := scala211
+val versionsNative   = Seq(scala211, scala212, scala213)
+
+ThisBuild / scalaVersion := scala213
+ThisBuild / crossScalaVersions := versionsNative
 
 inThisBuild(
   List(
@@ -35,6 +41,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "stensorflow-root",
+    crossScalaVersions := Nil,
     publish / skip := true,
     doc / aggregate := false,
     doc := (stensorflow / Compile / doc).value,
@@ -46,6 +53,7 @@ lazy val root = project
 lazy val stensorflow = project
   .in(file("stensorflow"))
   .settings(
+    crossScalaVersions := versionsNative,
     commonSettings
   )
   .enablePlugins(ScalaNativePlugin)

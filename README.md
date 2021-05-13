@@ -42,7 +42,7 @@ which will install into the `/usr/local/Cellar/libtensorflow/<version>` director
 ```
 $ brew install libtensorflow
 ```
-* The current TensorFlow version is `2.2.0`.
+* The current TensorFlow version is `2.4.1`.
 * Other OSes need to have `libtensorflow` available on the system.
 
 ## Usage and Help
@@ -68,4 +68,4 @@ In addition, look at the `v0.1.0` [stensorflow unit tests](https://github.com/ek
 
 ## Versions
 
-Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2019-XX-XX)<br/>
+Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-05-XX)<br/>
