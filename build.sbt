@@ -1,11 +1,14 @@
 addCommandAlias("run", "stensorflow/run")
 
-lazy val prevVersion = "0.1.0"
-lazy val nextVersion = "0.1.0"
+val scala211 = "2.11.12"
+val scala212 = "2.12.14"
+val scala213 = "2.13.6"
+val scala300 = "3.0.0"
 
-lazy val scala211 = "2.11.12"
+val versionsNative   = Seq(scala211, scala212, scala213)
 
-scalaVersion := scala211
+ThisBuild / scalaVersion := scala213
+ThisBuild / crossScalaVersions := versionsNative
 
 inThisBuild(
   List(
@@ -21,35 +24,24 @@ inThisBuild(
         email = "ekrichardson@gmail.com",
         url = url("http://github.ekrich.org/")
       )
-    ),
-    version := dynverGitDescribeOutput.value.mkVersion(versionFmt, ""),
-    dynver := sbtdynver.DynVer
-      .getGitDescribeOutput(new java.util.Date)
-      .mkVersion(versionFmt, "")
-  ))
-
-// stable snapshot is not great for publish local
-def versionFmt(out: sbtdynver.GitDescribeOutput): String = {
-  val tag = out.ref.dropV.value
-  if (out.isCleanAfterTag) tag
-  else nextVersion + "-SNAPSHOT"
-}
+    )
+  )
+)
 
 lazy val commonSettings = Seq(
   addCompilerPlugin(
-    "org.scala-native" % "junit-plugin" % "0.4.0-SNAPSHOT" cross CrossVersion.full),
-  libraryDependencies += "org.scala-native" %%% "junit-runtime" % "0.4.0-SNAPSHOT",
+    "org.scala-native" % "junit-plugin" % nativeVersion cross CrossVersion.full),
+  libraryDependencies += "org.scala-native" %%% "junit-runtime" % nativeVersion,
   testOptions += Tests.Argument(TestFrameworks.JUnit, "-a", "-s", "-v"),
-  scalaVersion := scala211,
   logLevel := Level.Info, // Info, Debug
   nativeLinkStubs := true
-//  nativeMode := "release-fast"
 )
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "stensorflow-root",
+    crossScalaVersions := Nil,
     publish / skip := true,
     doc / aggregate := false,
     doc := (stensorflow / Compile / doc).value,
@@ -61,6 +53,7 @@ lazy val root = project
 lazy val stensorflow = project
   .in(file("stensorflow"))
   .settings(
+    crossScalaVersions := versionsNative,
     commonSettings
   )
   .enablePlugins(ScalaNativePlugin)

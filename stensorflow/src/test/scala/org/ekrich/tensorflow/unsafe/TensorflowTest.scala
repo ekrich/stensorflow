@@ -4,22 +4,24 @@ import org.junit.Assert._
 import org.junit.Test
 
 import scalanative.libc.stdlib
-import scala.scalanative.unsafe.{CFloat, CFuncPtr3, CSize, fromCString}
-import scala.scalanative.unsafe.{Ptr, Zone, alloc, sizeof}
+import scalanative.unsafe.{CFloat, CFuncPtr3, CSize, fromCString}
+import scalanative.unsafe.{Ptr, Zone, alloc, sizeof}
+import scalanative.unsigned._
 
 import org.ekrich.tensorflow.unsafe.tensorflow._
 import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
 class TensorflowTest {
 
-  val tfVersion = "2.3.0"
+  val tfVersion = "2.5.0"
 
-  val deallocateTensor = new CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit] {
-    def apply(data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]): Unit = {
+  type DeallocateTensor = CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit]
+
+  val deallocateTensor: DeallocateTensor =
+    (data: Ptr[Byte], len: CSize, deallocateArg: Ptr[Byte]) => {
       stdlib.free(data)
       println("Free Original Tensor")
     }
-  }
 
   @Test def TF_VersionTest(): Unit = {
     Zone { implicit z =>
@@ -35,7 +37,7 @@ class TensorflowTest {
       // handle dims
       val dimsVals  = Seq(1, 5, 12)
       val dimsSize  = dimsVals.size
-      val dimsBytes = dimsSize * sizeof[int64_t]
+      val dimsBytes = dimsSize.toULong * sizeof[int64_t]
       //val dims      = alloc[int64_t](dimsSize)
       val dims = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
@@ -62,7 +64,7 @@ class TensorflowTest {
 
       // dimensions need to match data
       val dataSize  = dimsVals.reduceLeft(_ * _)
-      val dataBytes = dataSize * sizeof[CFloat]
+      val dataBytes = dataSize.toULong * sizeof[CFloat]
       //val data      = alloc[CFloat](dataSize)
       val data = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
