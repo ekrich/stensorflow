@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-10.14] #[ubuntu-18.04, 
+        os: [ubuntu-18.04, macos-10.14]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
@@ -19,7 +19,8 @@ jobs:
       uses: olafurpg/setup-scala@v10
     - name: Setup (Linux)
       if: matrix.os == 'ubuntu-18.04'
-      # run: |
+      run: |
+          echo ${{ matrix.os }}
       #     sudo apt-get update
       #     sudo apt-get install -y libatlas-base-dev
     - name: Setup (OS X)
