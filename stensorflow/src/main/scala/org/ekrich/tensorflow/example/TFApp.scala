@@ -9,7 +9,7 @@ import scalanative.unsafe.CFuncPtr3
 
 object TFApp {
 
-  val tfVersion = "2.4.1"
+  val tfVersion = "2.5.0"
 
   type DeallocateTensor = CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit]
 

@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-10.14]
+        os: [macos-10.14] #[ubuntu-18.04, 
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
