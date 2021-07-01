@@ -22,10 +22,10 @@ jobs:
       run: |
         sudo curl -v -fsSL \
           https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
-          | tar xzv -C /usr/local
+          | tar xzv -C /usr/local/
         ldconfig
     - name: Setup (OS X)
       if: matrix.os == 'macos-10.14'
-      run: brew install libtensorflow@2.5
+      run: brew install libtensorflow
     - name: Run tests
       run: sbt +test
