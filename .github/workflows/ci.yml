@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-10.14]
+        os: [ubuntu-18.04] #, macos-10.14]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
@@ -22,9 +22,13 @@ jobs:
       run: |
         curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
           -o libtensorflow.tar.gz
+        echo "pwd"
         pwd
+        echo "ls"
         ls
-        ls ~
+        echo "HOME"
+        echo $HOME
+        echo "/usr/local"
         ls /usr/local
         # sudo mkdir -p /usr/local && curl -v -fsSL \
         #   https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
@@ -34,4 +38,4 @@ jobs:
       if: matrix.os == 'macos-10.14'
       run: brew install libtensorflow
     - name: Run tests
-      run: sbt +test
+      #run: sbt +test
