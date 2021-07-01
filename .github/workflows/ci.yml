@@ -20,6 +20,9 @@ jobs:
     - name: Setup (Linux)
       if: matrix.os == 'ubuntu-18.04'
       run: |
+        curl -v -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz
+        pwd
+        ls
         ls /usr/local
         # sudo mkdir -p /usr/local && curl -v -fsSL \
         #   https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
