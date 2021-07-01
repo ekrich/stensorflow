@@ -20,10 +20,11 @@ jobs:
     - name: Setup (Linux)
       if: matrix.os == 'ubuntu-18.04'
       run: |
-        sudo mkdir -p /usr/local && curl -v -fsSL \
-          https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
-          | tar -xzv -C /usr/local
-        ldconfig
+        ls /usr/local
+        # sudo mkdir -p /usr/local && curl -v -fsSL \
+        #   https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
+        #   | tar -xzv -C /usr/local
+        # ldconfig
     - name: Setup (OS X)
       if: matrix.os == 'macos-10.14'
       run: brew install libtensorflow
