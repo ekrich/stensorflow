@@ -17,15 +17,14 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Java and Scala
       uses: olafurpg/setup-scala@v10
-    - name: Setup (Linux)
+    - name: Setup (Linux) on ${{ matrix.os }}
       if: matrix.os == 'ubuntu-18.04'
       run: |
-          echo ${{ matrix.os }}
-      #     sudo apt-get update
-      #     sudo apt-get install -y libatlas-base-dev
-    - name: Setup (OS X)
+        curl -v -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
+          | tar xzv -C /usr/local
+        ldconfig
+    - name: Setup (OS X) on ${{ matrix.os }}
       if: matrix.os == 'macos-10.14'
-      run: |
-          brew install libtensorflow
+      run: brew install libtensorflow@2.5.0
     - name: Run tests
       run: sbt +test
