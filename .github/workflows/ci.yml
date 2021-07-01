@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04] #, macos-10.14]
+        os: [ubuntu-18.04, macos-10.14]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
@@ -38,4 +38,4 @@ jobs:
       if: matrix.os == 'macos-10.14'
       run: brew install libtensorflow
     - name: Run tests
-      #run: sbt +test
+      run: sbt +test
