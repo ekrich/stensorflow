@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-10.14] #[ubuntu-18.04, 
+        os: [ubuntu-18.04, macos-10.14]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
@@ -19,12 +19,20 @@ jobs:
       uses: olafurpg/setup-scala@v10
     - name: Setup (Linux)
       if: matrix.os == 'ubuntu-18.04'
-      # run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y libatlas-base-dev
-    - name: Setup (OS X)
-      if: matrix.os == 'macos-10.14'
       run: |
-          brew install libtensorflow
-    - name: Run tests
+        curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
+          -o ~/libtensorflow.tar.gz
+        mkdir -p ~/tensorflow && tar -xzf ~/libtensorflow.tar.gz -C ~/tensorflow
+    - name: Setup (macOS)
+      if: matrix.os == 'macos-10.14'
+      run: brew install libtensorflow
+    - name: Run tests (Linux)
+      if: matrix.os == 'ubuntu-18.04'
+      run: |
+        export LIBRARY_PATH=$LIBRARY_PATH:~/tensorflow/lib
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/tensorflow/lib
+        export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tensorflow/include
+        sbt -d +test
+    - name: Run tests (macOS)
+      if: matrix.os == 'macos-10.14'
       run: sbt +test

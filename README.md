@@ -1,5 +1,5 @@
 # stensorflow - Scala Native TensorFlow
-[![Build Status](https://travis-ci.org/ekrich/sblas.svg?branch=master)](https://travis-ci.org/ekrich/stensorflow)
+![CI](https://github.com/ekrich/stensorflow/workflows/CI/badge.svg)
 
 This library implements the C TensorFlow API adapted for the Scala Native platform.
 
@@ -16,7 +16,7 @@ converted to [LLVM IR](http://llvm.org/). Finally LLVM code is optimized
 and compiled by [Clang](http://clang.llvm.org/) to produce a native executable.
 
 ## Getting started
-[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.4_2.11.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.4_2.11)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.4_2.13.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.4_2.13)
 
 If you are already familiar with Scala Native you can jump right in by adding the following dependency in your `sbt` build file.
 
@@ -25,7 +25,7 @@ libraryDependencies += "org.ekrich" %%% "stensorflow" % "x.y.z"
 ```
 
 To use in `sbt`, replace `x.y.z` with the version from Maven Central badge above.
-All available versions can be seen at the [Maven Repository](https://mvnrepository.com/artifact/org.ekrich/sblas).
+All available versions can be seen at the [Maven Repository](https://mvnrepository.com/artifact/org.ekrich/stensorflow).
 
 Otherwise follow the [Getting Started](https://scala-native.readthedocs.io/en/latest/user/setup.html)
 instructions for Scala Native if you are not already setup.
@@ -36,17 +36,24 @@ Additional libraries that need to be installed on you system are as follows:
 
 https://www.tensorflow.org/install/lang_c
 
+Essentially do the following for this platform and version: `x84_64-2.5.0`:
+
+```
+$ curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
+    | tar -xz -C /usr/local
+```
+
 * macOS can install TensorFlow using [Homebrew](https://formulae.brew.sh/formula/libtensorflow) 
 which will install into the `/usr/local/Cellar/libtensorflow/<version>` directory.
 
 ```
 $ brew install libtensorflow
 ```
-* The current TensorFlow version is `2.4.1`.
+* The current TensorFlow version is `2.5.0`.
 * Other OSes need to have `libtensorflow` available on the system.
 
 ## Usage and Help
-[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.3_2.11.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.4_2.11)
+[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.4_2.13.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.4_2.13)
 [![Join chat https://gitter.im/ekrich/stensorflow](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekrich/stensorflow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Reference the link above for Scaladoc. The documentation is a little sparse but hopefully will improve with time.
@@ -59,7 +66,7 @@ $ cd <directory entered after the prompt>
 $ sbt run
 ```
 
-In addition, look at the `v0.1.0` [stensorflow unit tests](https://github.com/ekrich/stensorflow/blob/v0.1.0/stensorflow/src/test/scala/org/ekrich/stensorflow/snic/TensorflowSuite.scala) for other examples of usage.
+In addition, look at the [stensorflow unit tests](https://github.com/ekrich/stensorflow/blob/main/stensorflow/src/test/scala/org/ekrich/tensorflow/unsafe/TensorflowTest.scala) for other examples of usage.
 
 ## TensorFlow References and External Documentation
 
@@ -68,4 +75,4 @@ In addition, look at the `v0.1.0` [stensorflow unit tests](https://github.com/ek
 
 ## Versions
 
-Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-05-XX)<br/>
+Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-07-XX)<br/>

@@ -25,14 +25,14 @@ class TensorflowTest {
 
   @Test def TF_VersionTest(): Unit = {
     Zone { implicit z =>
-      println(s"Tensorflow version: ${fromCString(TF_Version())}")
-      assert(tfVersion == fromCString(TF_Version()))
+      val reportVersion = fromCString(TF_Version())
+      println(s"Tensorflow version: ${reportVersion}")
+      assert(reportVersion.startsWith(tfVersion))
     }
   }
   @Test def TF_ExampleTest(): Unit = {
     Zone { implicit z =>
       println("Running example...")
-      assert(tfVersion == fromCString(TF_Version()))
 
       // handle dims
       val dimsVals  = Seq(1, 5, 12)
