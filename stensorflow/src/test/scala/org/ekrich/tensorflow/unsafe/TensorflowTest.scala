@@ -33,7 +33,6 @@ class TensorflowTest {
   @Test def TF_ExampleTest(): Unit = {
     Zone { implicit z =>
       println("Running example...")
-      assert(tfVersion == fromCString(TF_Version()))
 
       // handle dims
       val dimsVals  = Seq(1, 5, 12)
