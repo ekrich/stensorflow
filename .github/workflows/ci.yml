@@ -31,11 +31,13 @@ jobs:
         #   https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
         #   | tar -xzv -C /usr/local
         # ldconfig
-        echo "LIBRARY_PATH=~/tensorflow/lib" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=~/tensorflow/lib" >> $GITHUB_ENV
-        echo "C_INCLUDE_PATH=~/tensorflow/include" >> $GITHUB_ENV
+        export LIBRARY_PATH=$LIBRARY_PATH:~/tensorflow/lib
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/tensorflow/lib
+        export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tensorflow/include
     - name: Setup (OS X)
       if: matrix.os == 'macos-10.14'
       run: brew install libtensorflow
     - name: Run tests
-      run: sbt +test
+      run: |
+        echo "lib=$LIBRARY_PATH"
+        sbt -d +test
