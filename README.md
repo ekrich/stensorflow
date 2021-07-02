@@ -36,6 +36,13 @@ Additional libraries that need to be installed on you system are as follows:
 
 https://www.tensorflow.org/install/lang_c
 
+Essentially do the following for this platform and version: `x84_64-2.5.0`:
+
+```
+$ curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
+    | tar -xz -C /usr/local
+```
+
 * macOS can install TensorFlow using [Homebrew](https://formulae.brew.sh/formula/libtensorflow) 
 which will install into the `/usr/local/Cellar/libtensorflow/<version>` directory.
 

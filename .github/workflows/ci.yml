@@ -21,9 +21,7 @@ jobs:
       if: matrix.os == 'ubuntu-18.04'
       env:
         TF_DIR: ~/tensorflow
-        LIBRARY_PATH: ${{ env.TF_DIR }}/lib
-        LD_LIBRARY_PATH: ${{ env.LIBRARY_PATH }}
-        C_INCLUDE_PATH: ${{ env.TF_DIR }}/include
+
       run: |
         curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
           -o ~/libtensorflow.tar.gz
@@ -36,9 +34,9 @@ jobs:
         #   https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
         #   | tar -xzv -C /usr/local
         # ldconfig
-        echo "LIBRARY_PATH=${{ env.LIBRARY_PATH }}" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=${{ env.LD_LIBRARY_PATH }}" >> $GITHUB_ENV
-        echo "C_INCLUDE_PATH=${{ env.C_INCLUDE_PATH }}" >> $GITHUB_ENV
+        echo LIBRARY_PATH={{ env.TF_DIR }}/lib >> $GITHUB_ENV
+        echo LD_LIBRARY_PATH={{ env.TF_DIR }}/lib >> $GITHUB_ENV
+        echo C_INCLUDE_PATH={{ env.TF_DIR }}/include >> $GITHUB_ENV
     - name: Setup (OS X)
       if: matrix.os == 'macos-10.14'
       run: brew install libtensorflow
