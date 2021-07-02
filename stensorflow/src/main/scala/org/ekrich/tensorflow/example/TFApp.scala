@@ -24,7 +24,6 @@ object TFApp {
     Zone { implicit z =>
       println("Running example...")
       println(s"Tensorflow version: ${fromCString(TF_Version())}")
-      assert(tfVersion == fromCString(TF_Version()))
 
       // handle dims
       val dimsVals = Seq(1, 5, 12)
