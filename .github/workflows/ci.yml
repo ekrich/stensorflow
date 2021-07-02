@@ -19,14 +19,19 @@ jobs:
       uses: olafurpg/setup-scala@v10
     - name: Setup (Linux)
       if: matrix.os == 'ubuntu-18.04'
+      env:
+        TF_DIR: ~/tensorflow
+        LIBRARY_PATH: ${{ env.TF_DIR }}/lib
+        LD_LIBRARY_PATH: ${{ env.LIBRARY_PATH }}
+        C_INCLUDE_PATH: ${{ env.TF_DIR }}/include
       run: |
         curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
           -o ~/libtensorflow.tar.gz
-        mkdir -p ~/tensorflow && tar -xzf ~/libtensorflow.tar.gz -C ~/tensorflow
+        mkdir -p {{ env.TF_DIR }} && tar -xzf ~/libtensorflow.tar.gz -C {{ env.TF_DIR }}
         echo "ls HOME"
         ls $HOME
         echo "ls -R ~/tensorflow"
-        ls -R ~/tensorflow
+        ls -R {{ env.TF_DIR }}
         # sudo mkdir -p /usr/local && curl -v -fsSL \
         #   https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
         #   | tar -xzv -C /usr/local
