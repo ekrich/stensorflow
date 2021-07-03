@@ -30,7 +30,9 @@ All available versions can be seen at the [Maven Repository](https://mvnreposito
 Otherwise follow the [Getting Started](https://scala-native.readthedocs.io/en/latest/user/setup.html)
 instructions for Scala Native if you are not already setup.
 
-Additional libraries that need to be installed on you system are as follows:
+## Additional libraries
+
+The TensorFlow C library is required and the current version is `2.5.0`.
 
 * Linux/Ubuntu can TensorFlow following the following directions:
 
@@ -49,7 +51,7 @@ which will install into the `/usr/local/Cellar/libtensorflow/<version>` director
 ```
 $ brew install libtensorflow
 ```
-* The current TensorFlow version is `2.5.0`.
+
 * Other OSes need to have `libtensorflow` available on the system.
 
 ## Usage and Help
@@ -75,4 +77,4 @@ In addition, look at the [stensorflow unit tests](https://github.com/ekrich/sten
 
 ## Versions
 
-Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-07-XX)<br/>
+Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-07-02)<br/>
