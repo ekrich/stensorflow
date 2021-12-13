@@ -32,21 +32,24 @@ instructions for Scala Native if you are not already setup.
 
 ## Additional libraries
 
-The TensorFlow C library is required and the current version is `2.5.0`.
+The TensorFlow C library is required and the current version is `2.7.0`.
 
 * Linux/Ubuntu can TensorFlow following the following directions:
 
 https://www.tensorflow.org/install/lang_c
 
-Essentially do the following for this platform and version: `x84_64-2.5.0`:
+Essentially do the following for this platform and version: `x84_64-2.7.0`:
 
 ```
-$ curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.5.0.tar.gz \
+$ curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.7.0.tar.gz \
     | tar -xz -C /usr/local
 ```
 
 * macOS can install TensorFlow using [Homebrew](https://formulae.brew.sh/formula/libtensorflow) 
 which will install into the `/usr/local/Cellar/libtensorflow/<version>` directory.
+
+Note: macOS Catalina 10.15.x or greater is required to install TensorFlow via
+Homebrew although the CI seems to work with 10.14.
 
 ```
 $ brew install libtensorflow
@@ -77,4 +80,5 @@ In addition, look at the [stensorflow unit tests](https://github.com/ekrich/sten
 
 ## Versions
 
+Release [0.2.0](https://github.com/ekrich/tensorflow/releases/tag/v0.2.0) - (2021-12-13)<br/>
 Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-07-02)<br/>
