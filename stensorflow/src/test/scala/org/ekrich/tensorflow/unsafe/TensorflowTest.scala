@@ -83,7 +83,7 @@ class TensorflowTest {
       println(data)
 
       // same as null?
-      val nullptr = alloc[Byte]
+      val nullptr = alloc[Byte]()
       !nullptr = 0x00
 
       println("Create Tensor")

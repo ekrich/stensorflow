@@ -2267,7 +2267,7 @@ object tensorflowOps {
   }
 
   def TF_Buffer()(implicit z: Zone): Ptr[TF_Buffer] =
-    alloc[TF_Buffer]
+    alloc[TF_Buffer]()
 
   implicit class TF_Input_ops(val p: Ptr[TF_Input]) extends AnyVal {
     def oper: Ptr[TF_Operation]                = p._1
@@ -2277,7 +2277,7 @@ object tensorflowOps {
   }
 
   def TF_Input()(implicit z: Zone): Ptr[TF_Input] =
-    alloc[TF_Input]
+    alloc[TF_Input]()
 
   implicit class TF_Output_ops(val p: Ptr[TF_Output]) extends AnyVal {
     def oper: Ptr[TF_Operation]                = p._1
@@ -2287,7 +2287,7 @@ object tensorflowOps {
   }
 
   def TF_Output()(implicit z: Zone): Ptr[TF_Output] =
-    alloc[TF_Output]
+    alloc[TF_Output]()
 
   implicit class TF_AttrMetadata_ops(val p: Ptr[TF_AttrMetadata])
       extends AnyVal {
@@ -2302,7 +2302,7 @@ object tensorflowOps {
   }
 
   def TF_AttrMetadata()(implicit z: Zone): Ptr[TF_AttrMetadata] =
-    alloc[TF_AttrMetadata]
+    alloc[TF_AttrMetadata]()
 
   implicit class TF_WhileParams_ops(val p: Ptr[TF_WhileParams]) extends AnyVal {
     def ninputs: CInt                               = p._1
@@ -2324,5 +2324,5 @@ object tensorflowOps {
   }
 
   def TF_WhileParams()(implicit z: Zone): Ptr[TF_WhileParams] =
-    alloc[TF_WhileParams]
+    alloc[TF_WhileParams]()
 }
