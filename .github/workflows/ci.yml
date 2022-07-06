@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-10.14]
+        os: [ubuntu-18.04, macos-10.15]
         java: [ '8', '11', '17' ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -22,21 +22,21 @@ jobs:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
     - name: Setup (Linux)
-      if: matrix.os == 'ubuntu-18.04'
+      if: startsWith(matrix.os, 'ubuntu')
       run: |
-        curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.7.0.tar.gz \
+        curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.9.0.tar.gz \
           -o ~/libtensorflow.tar.gz
         mkdir -p ~/tensorflow && tar -xzf ~/libtensorflow.tar.gz -C ~/tensorflow
     - name: Setup (macOS)
-      if: matrix.os == 'macos-10.14'
+      if: startsWith(matrix.os, 'macos')
       run: brew install libtensorflow
     - name: Run tests (Linux) Java ${{ matrix.java }}
-      if: matrix.os == 'ubuntu-18.04'
+      if: startsWith(matrix.os, 'ubuntu')
       run: |
         export LIBRARY_PATH=$LIBRARY_PATH:~/tensorflow/lib
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/tensorflow/lib
         export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tensorflow/include
         sbt +test
     - name: Run tests (macOS) Java ${{ matrix.java }}
-      if: matrix.os == 'macos-10.14'
+      if: startsWith(matrix.os, 'macos')
       run: sbt +test

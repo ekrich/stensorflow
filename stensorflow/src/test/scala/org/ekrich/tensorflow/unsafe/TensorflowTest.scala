@@ -13,7 +13,7 @@ import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
 class TensorflowTest {
 
-  val tfVersion = "2.7"
+  val tfVersion = "2.9"
 
   type DeallocateTensor = CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit]
 
@@ -83,7 +83,7 @@ class TensorflowTest {
       println(data)
 
       // same as null?
-      val nullptr = alloc[Byte]
+      val nullptr = alloc[Byte]()
       !nullptr = 0x00
 
       println("Create Tensor")
