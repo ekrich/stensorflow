@@ -28,7 +28,7 @@ jobs:
           -o ~/libtensorflow.tar.gz
         mkdir -p ~/tensorflow && tar -xzf ~/libtensorflow.tar.gz -C ~/tensorflow
     - name: Setup (macOS)
-      if: matrix.os == 'macos-10.14'
+      if: startsWith(matrix.os , 'macos')
       run: brew install libtensorflow
     - name: Run tests (Linux) Java ${{ matrix.java }}
       if: matrix.os == 'ubuntu-18.04'
@@ -38,5 +38,5 @@ jobs:
         export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tensorflow/include
         sbt +test
     - name: Run tests (macOS) Java ${{ matrix.java }}
-      if: matrix.os == 'macos-10.14'
+      if: startsWith(matrix.os , 'macos')
       run: sbt +test
