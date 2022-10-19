@@ -10,21 +10,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, macos-10.15]
+        os: [ubuntu-20.04, macos-10.15]
         java: [ '8', '11', '17' ]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup Java
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
+          cache: 'sbt'
     - name: Setup (Linux)
       if: startsWith(matrix.os, 'ubuntu')
       run: |
-        curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.9.0.tar.gz \
+        curl -fsSL https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.10.0.tar.gz \
           -o ~/libtensorflow.tar.gz
         mkdir -p ~/tensorflow && tar -xzf ~/libtensorflow.tar.gz -C ~/tensorflow
     - name: Setup (macOS)
