@@ -13,7 +13,7 @@ import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
 class TensorflowTest {
 
-  val tfVersion = "2.10"
+  val tfVersion = "2.11"
 
   type DeallocateTensor = CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit]
 
@@ -27,7 +27,8 @@ class TensorflowTest {
     Zone { implicit z =>
       val reportVersion = fromCString(TF_Version())
       println(s"Tensorflow version: ${reportVersion}")
-      assert(reportVersion.startsWith(tfVersion))
+      assertTrue(s"Looking for version: $tfVersion",
+                 reportVersion.startsWith(tfVersion))
     }
   }
   @Test def TF_ExampleTest(): Unit = {
