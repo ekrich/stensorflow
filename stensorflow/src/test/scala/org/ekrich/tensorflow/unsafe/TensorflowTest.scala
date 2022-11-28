@@ -27,7 +27,8 @@ class TensorflowTest {
     Zone { implicit z =>
       val reportVersion = fromCString(TF_Version())
       println(s"Tensorflow version: ${reportVersion}")
-      assertTrue(s"Looking for version: $tfVersion", reportVersion.startsWith(tfVersion))
+      assertTrue(s"Looking for version: $tfVersion",
+                 reportVersion.startsWith(tfVersion))
     }
   }
   @Test def TF_ExampleTest(): Unit = {
