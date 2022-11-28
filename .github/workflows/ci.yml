@@ -30,7 +30,9 @@ jobs:
         mkdir -p ~/tensorflow && tar -xzf ~/libtensorflow.tar.gz -C ~/tensorflow
     - name: Setup (macOS)
       if: startsWith(matrix.os, 'macos')
-      run: brew install libtensorflow
+      run: |
+        brew update
+        brew install libtensorflow
     - name: Run tests (Linux) Java ${{ matrix.java }}
       if: startsWith(matrix.os, 'ubuntu')
       run: |
