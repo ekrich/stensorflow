@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+# uncomment to debug
 # set -x
 
 HERE="`dirname $0`"
-VERSION="1.5.1"
+VERSION=$(sed -nre "s#\s*version[^0-9]+([0-9.]+)#\1#p" $HERE/../.scalafmt.conf)
 COURSIER="$HERE/.coursier"
 SCALAFMT="$HERE/.scalafmt-$VERSION"
 
@@ -13,7 +14,7 @@ if [ ! -f $COURSIER ]; then
 fi
 
 if [ ! -f $SCALAFMT ]; then
-  $COURSIER bootstrap com.geirsson:scalafmt-cli_2.12:$VERSION --main org.scalafmt.cli.Cli -o $SCALAFMT
+  $COURSIER bootstrap org.scalameta:scalafmt-cli_2.13:$VERSION -r sonatype:snapshots --main org.scalafmt.cli.Cli -o $SCALAFMT
   chmod +x $SCALAFMT
 fi
 

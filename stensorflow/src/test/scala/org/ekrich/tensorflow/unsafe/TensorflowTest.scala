@@ -27,8 +27,10 @@ class TensorflowTest {
     Zone { implicit z =>
       val reportVersion = fromCString(TF_Version())
       println(s"Tensorflow version: ${reportVersion}")
-      assertTrue(s"Looking for version: $tfVersion",
-                 reportVersion.startsWith(tfVersion))
+      assertTrue(
+        s"Looking for version: $tfVersion",
+        reportVersion.startsWith(tfVersion)
+      )
     }
   }
   @Test def TF_ExampleTest(): Unit = {
@@ -36,10 +38,10 @@ class TensorflowTest {
       println("Running example...")
 
       // handle dims
-      val dimsVals  = Seq(1, 5, 12)
-      val dimsSize  = dimsVals.size
+      val dimsVals = Seq(1, 5, 12)
+      val dimsSize = dimsVals.size
       val dimsBytes = dimsSize.toULong * sizeof[int64_t]
-      //val dims      = alloc[int64_t](dimsSize)
+      // val dims = alloc[int64_t](dimsSize)
       val dims = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
       // copy to memory
@@ -64,9 +66,9 @@ class TensorflowTest {
       )
 
       // dimensions need to match data
-      val dataSize  = dimsVals.reduceLeft(_ * _)
+      val dataSize = dimsVals.reduceLeft(_ * _)
       val dataBytes = dataSize.toULong * sizeof[CFloat]
-      //val data      = alloc[CFloat](dataSize)
+      // val data = alloc[CFloat](dataSize)
       val data = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
       // copy to memory
@@ -89,13 +91,15 @@ class TensorflowTest {
 
       println("Create Tensor")
       val tensor =
-        TF_NewTensor(TF_FLOAT,
-                     dims,
-                     dimsSize,
-                     data.asInstanceOf[Ptr[Byte]],
-                     dataBytes,
-                     deallocateTensor,
-                     nullptr);
+        TF_NewTensor(
+          TF_FLOAT,
+          dims,
+          dimsSize,
+          data.asInstanceOf[Ptr[Byte]],
+          dataBytes,
+          deallocateTensor,
+          nullptr
+        );
 
       println(s"Tensor: $tensor")
 
