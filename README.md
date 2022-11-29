@@ -16,7 +16,7 @@ converted to [LLVM IR](http://llvm.org/). Finally LLVM code is optimized
 and compiled by [Clang](http://clang.llvm.org/) to produce a native executable.
 
 ## Getting started
-[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.4_2.13.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.4_2.13)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.4_3.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.4_3)
 
 If you are already familiar with Scala Native you can jump right in by adding the following dependency in your `sbt` build file.
 
@@ -30,9 +30,18 @@ All available versions can be seen at the [Maven Repository](https://mvnreposito
 Otherwise follow the [Getting Started](https://scala-native.readthedocs.io/en/latest/user/setup.html)
 instructions for Scala Native if you are not already setup.
 
+## Scala Build Versions
+
+| Scala Version          | Native (0.4.9+)       |
+| ---------------------- | :-------------------: |
+| 3.2.x                  |          ✅           |
+
+Use version `0.3.0` or greater for Scala Native `0.4.9+` and Scala 3.
+Refer to release notes for older versions of Scala and Scala Native
+
 ## Additional libraries
 
-The TensorFlow C library is required and the current version is `2.10.0`.
+The TensorFlow C library is required and the current version is `2.11.0`.
 
 * Linux/Ubuntu can TensorFlow following the following directions:
 
@@ -50,7 +59,7 @@ $ sudo ldconfig /usr/local/lib
 * macOS can install TensorFlow using [Homebrew](https://formulae.brew.sh/formula/libtensorflow) 
 which will install into the `/usr/local/Cellar/libtensorflow/<version>` directory.
 
-Note: macOS Catalina 10.15.x or greater is required to install TensorFlow via
+Note: macOS 11 or greater is recommended to install TensorFlow via
 Homebrew and is used in CI.
 
 ```
@@ -60,7 +69,7 @@ $ brew install libtensorflow
 * Other OSes need to have `libtensorflow` available on the system.
 
 ## Usage and Help
-[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.4_2.13.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.4_2.13)
+[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.4_3.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.4_3)
 [![Join chat https://gitter.im/ekrich/stensorflow](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekrich/stensorflow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Reference the link above for Scaladoc. The documentation is a little sparse but hopefully will improve with time.
@@ -82,5 +91,6 @@ In addition, look at the [stensorflow unit tests](https://github.com/ekrich/sten
 
 ## Versions
 
+Release [0.3.0](https://github.com/ekrich/tensorflow/releases/tag/v0.3.0) - (2022-11-29)<br/>
 Release [0.2.0](https://github.com/ekrich/tensorflow/releases/tag/v0.2.0) - (2021-12-13)<br/>
 Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-07-02)<br/>
