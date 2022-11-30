@@ -91,6 +91,6 @@ In addition, look at the [stensorflow unit tests](https://github.com/ekrich/sten
 
 ## Versions
 
-Release [0.3.0](https://github.com/ekrich/tensorflow/releases/tag/v0.3.0) - (2022-11-29)<br/>
-Release [0.2.0](https://github.com/ekrich/tensorflow/releases/tag/v0.2.0) - (2021-12-13)<br/>
-Release [0.1.0](https://github.com/ekrich/tensorflow/releases/tag/v0.1.0) - (2021-07-02)<br/>
+Release [0.3.0](https://github.com/ekrich/stensorflow/releases/tag/v0.3.0) - (2022-11-29)<br/>
+Release [0.2.0](https://github.com/ekrich/stensorflow/releases/tag/v0.2.0) - (2021-12-13)<br/>
+Release [0.1.0](https://github.com/ekrich/stensorflow/releases/tag/v0.1.0) - (2021-07-02)<br/>
