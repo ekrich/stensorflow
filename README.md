@@ -18,7 +18,9 @@ and compiled by [Clang](http://clang.llvm.org/) to produce a native executable.
 ## Getting started
 [![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.4_3.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.4_3)
 
-If you are already familiar with Scala Native you can jump right in by adding the following dependency in your `sbt` build file.
+You can use the Gitter8 template [stensorflow.g8](https://github.com/ekrich/stensorflow.g8#stensorflowg8) to get started. The linked directions will send you back here to install the Tensorflow library below but it should be easier overall.
+
+If you are already familiar with Scala Native you can jump right in by adding the following dependency in your `sbt` build file. Refer to the `TensorflowTest.scala` source in this repository or in the template referred to above for an example.
 
 ```scala
 libraryDependencies += "org.ekrich" %%% "stensorflow" % "x.y.z"
@@ -39,7 +41,7 @@ instructions for Scala Native if you are not already setup.
 Use version `0.3.0` or greater for Scala Native `0.4.9+` and Scala 3.
 Refer to release notes for older versions of Scala and Scala Native
 
-## Additional libraries
+## Tensorflow library
 
 The TensorFlow C library is required and the current version is `2.11.0`.
 
