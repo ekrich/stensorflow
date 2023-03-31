@@ -43,7 +43,7 @@ Refer to release notes for older versions of Scala and Scala Native
 
 ## Tensorflow library
 
-The TensorFlow C library is required and the current version is `2.11.0`.
+The TensorFlow C library is required and the current version is `2.12.0`.
 
 * Linux/Ubuntu can TensorFlow following the following directions:
 
