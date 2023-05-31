@@ -1,5 +1,5 @@
 // stensorflow build
-val scala3 = "3.2.2"
+val scala3 = "3.3.0"
 
 val versionsNative = Seq(scala3)
 
