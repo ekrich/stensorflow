@@ -72,7 +72,7 @@ $ brew install libtensorflow
 
 ## Usage and Help
 [![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.4_3.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.4_3)
-[![Join chat https://gitter.im/ekrich/stensorflow](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ekrich/stensorflow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Discord](https://img.shields.io/discord/633356833498595365.svg?label=&logo=discord&logoColor=ffffff&color=404244&labelColor=6A7EC2)](https://discord.gg/XSj6hQs)
 
 Reference the link above for Scaladoc. The documentation is a little sparse but hopefully will improve with time.
 
@@ -89,7 +89,22 @@ In addition, look at the [stensorflow unit tests](https://github.com/ekrich/sten
 ## TensorFlow References and External Documentation
 
 [TensorFlow Website](https://www.tensorflow.org/)<br/>
-[TensorFlow for JVM using JNI](http://platanios.org/tensorflow_scala/)
+[TensorFlow for JVM using JNI](https://platanios.org/tensorflow_scala/)
+
+## Tensorflow for Scala Native contributors
+
+The Language Server `clangd` can be used to help development using VSCode or other editors. For VSCode see the `clangd` plugin on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) for more info.
+
+Add a `compile_flags.txt` with the following content to the `stensorflow/src/main/resources/scala-native` directory.
+
+```
+# Tensorflow Setup
+# Standard path on macOS arm
+-I
+/opt/homebrew/include
+```
+
+Change the path to match your include path. There is a small amount of official documentation that contains info about [compile_flags.txt](https://clang.llvm.org/docs/JSONCompilationDatabase.html). Otherwise some other info can be found online.
 
 ## Versions
 
