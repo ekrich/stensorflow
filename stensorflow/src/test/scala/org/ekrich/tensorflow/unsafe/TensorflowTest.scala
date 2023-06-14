@@ -41,7 +41,6 @@ class TensorflowTest {
       val dimsVals = Seq(1, 5, 12)
       val dimsSize = dimsVals.size
       val dimsBytes = dimsSize.toULong * sizeof[int64_t]
-      // val dims = alloc[int64_t](dimsSize)
       val dims = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
       // copy to memory
