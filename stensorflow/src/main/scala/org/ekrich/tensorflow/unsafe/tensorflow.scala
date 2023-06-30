@@ -514,9 +514,9 @@ object tensorflow {
    * Sets the shape of the Tensor referenced by `output` in `graph` to the shape
    * described by `dims` and `num_dims`.
    *
-   * If the number of dimensions is unknown, `num_dims` must be set to
-   * -1 and `dims` can be null. If a dimension is unknown, the corresponding
-   * entry in the `dims` array must be -1.
+   * If the number of dimensions is unknown, `num_dims` must be set to -1 and
+   * `dims` can be null. If a dimension is unknown, the corresponding entry in
+   * the `dims` array must be -1.
    *
    * This does not overwrite the existing shape associated with `output`, but
    * merges the input shape with the existing shape. For example, setting a
@@ -1635,8 +1635,7 @@ object tensorflow {
 
   /**
    * Adds operations to compute the partial derivatives of sum of `y`s w.r.t
-   * `x`s,
-   * i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2...
+   * `x`s, i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2...
    *
    * `dx` are used as initial gradients (which represent the symbolic partial
    * derivatives of some loss function `L` w.r.t. `y`). `dx` must be nullptr or
@@ -1668,10 +1667,9 @@ object tensorflow {
 
   /**
    * Adds operations to compute the partial derivatives of sum of `y`s w.r.t
-   * `x`s,
-   * i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2... This is a variant
-   * of TF_AddGradients that allows to caller to pass a custom name prefix to
-   * the operations added to a graph to compute the gradients.
+   * `x`s, i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2... This is a
+   * variant of TF_AddGradients that allows to caller to pass a custom name
+   * prefix to the operations added to a graph to compute the gradients.
    *
    * `dx` are used as initial gradients (which represent the symbolic partial
    * derivatives of some loss function `L` w.r.t. `y`). `dx` must be nullptr or
