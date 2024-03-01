@@ -24,7 +24,7 @@ class TensorflowTest {
     }
 
   @Test def TF_VersionTest(): Unit = {
-    Zone { implicit z =>
+    Zone {
       val reportVersion = fromCString(TF_Version())
       println(s"Tensorflow version: ${reportVersion}")
       assertTrue(
@@ -34,14 +34,13 @@ class TensorflowTest {
     }
   }
   @Test def TF_ExampleTest(): Unit = {
-    Zone { implicit z =>
+    Zone {
       println("Running example...")
 
       // handle dims
       val dimsVals = Seq(1, 5, 12)
       val dimsSize = dimsVals.size
-      val dimsBytes = dimsSize.toULong * sizeof[int64_t]
-      // val dims = alloc[int64_t](dimsSize)
+      val dimsBytes = dimsSize.toUSize * sizeof[int64_t]
       val dims = stdlib.malloc(dimsBytes).asInstanceOf[Ptr[int64_t]]
 
       // copy to memory
@@ -67,7 +66,7 @@ class TensorflowTest {
 
       // dimensions need to match data
       val dataSize = dimsVals.reduceLeft(_ * _)
-      val dataBytes = dataSize.toULong * sizeof[CFloat]
+      val dataBytes = dataSize.toUSize * sizeof[CFloat]
       // val data = alloc[CFloat](dataSize)
       val data = stdlib.malloc(dataBytes).asInstanceOf[Ptr[CFloat]]
 
