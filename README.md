@@ -16,7 +16,7 @@ converted to [LLVM IR](http://llvm.org/). Finally LLVM code is optimized
 and compiled by [Clang](http://clang.llvm.org/) to produce a native executable.
 
 ## Getting started
-[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.5.0-RC1_3.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.5.0-RC1_3)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ekrich/stensorflow_native0.5_3.svg)](https://maven-badges.herokuapp.com/maven-central/org.ekrich/stensorflow_native0.5_3)
 
 You can use the Gitter8 template [stensorflow.g8](https://github.com/ekrich/stensorflow.g8#stensorflowg8) to get started. The linked directions will send you back here to install the Tensorflow library below but it should be easier overall.
 
@@ -34,12 +34,12 @@ instructions for Scala Native if you are not already setup.
 
 ## Scala Build Versions
 
-| Scala Version          | Native (0.5.0+)       |
+| Scala Version          | Native (0.5.x)       |
 | ---------------------- | :-------------------: |
 | 3.3.x (LTS)            |          ✅           |
 
 
-* Use version `0.4.0` for Scala Native `0.5.0-RC1`.
+* Use version `0.5.0` for Scala Native `0.5.x`.
 * Use version `0.3.0` for Scala Native `0.4.9+`.
 
 Note: Refer to release notes for older versions of Scala and Scala Native
@@ -74,7 +74,7 @@ $ brew install libtensorflow
 * Other OSes need to have `libtensorflow` available on the system.
 
 ## Usage and Help
-[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.5.0-RC1_3.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.5.0-RC1_3)
+[![scaladoc](https://www.javadoc.io/badge/org.ekrich/stensorflow_native0.5_3.svg?label=scaladoc)](https://www.javadoc.io/doc/org.ekrich/stensorflow_native0.5_3)
 [![Discord](https://img.shields.io/discord/633356833498595365.svg?label=&logo=discord&logoColor=ffffff&color=404244&labelColor=6A7EC2)](https://discord.gg/XSj6hQs)
 
 Reference the link above for Scaladoc. The documentation is a little sparse but hopefully will improve with time.
@@ -111,6 +111,7 @@ Change the path to match your include path. There is a small amount of official 
 
 ## Versions
 
+Release [0.5.0](https://github.com/ekrich/stensorflow/releases/tag/v0.5.0) - (2024-04-11)<br/>
 Release [0.4.0](https://github.com/ekrich/stensorflow/releases/tag/v0.4.0) - (2024-03-01)<br/>
 Release [0.3.0](https://github.com/ekrich/stensorflow/releases/tag/v0.3.0) - (2022-11-29)<br/>
 Release [0.2.0](https://github.com/ekrich/stensorflow/releases/tag/v0.2.0) - (2021-12-13)<br/>
