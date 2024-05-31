@@ -46,7 +46,7 @@ Note: Refer to release notes for older versions of Scala and Scala Native
 
 ## Tensorflow library
 
-The TensorFlow C library is required and the current version is `2.15.0`.
+The TensorFlow C library is required and the current version is `2.16.1`.
 
 * Linux/Ubuntu can TensorFlow following the following directions:
 
@@ -65,7 +65,8 @@ $ sudo ldconfig /usr/local/lib
 which will install into the `/usr/local/Cellar/libtensorflow/<version>` directory.
 
 Note: macOS 12 or greater is recommended to install TensorFlow via
-Homebrew and is used in CI. Tensorflow `2.15` is built for macos `13.1`.
+Homebrew and is used in CI. Tensorflow `2.16.1` is built for macos `13.1` so you
+will get a linking warning if using an older OS version.
 
 ```
 $ brew install libtensorflow
