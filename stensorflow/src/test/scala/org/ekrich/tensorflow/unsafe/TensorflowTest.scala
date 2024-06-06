@@ -13,7 +13,19 @@ import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
 class TensorflowTest {
 
-  val tfVersion = "2.16"
+  val tfMinVersion = "2.15"
+
+  // major, minor
+  case class Version(major: Int, minor: Int) extends Ordered[Version] {
+    import math.Ordered.orderingToOrdered
+    def compare(that: Version): Int =
+      (this.major, this.minor).compare(that.major, that.minor)
+  }
+
+  def version(ver: String): Version = {
+    val arr = ver.split("[.]")
+    Version(arr(0).toInt, arr(1).toInt)
+  }
 
   type DeallocateTensor = CFuncPtr3[Ptr[Byte], CSize, Ptr[Byte], Unit]
 
@@ -25,11 +37,13 @@ class TensorflowTest {
 
   @Test def TF_VersionTest(): Unit = {
     Zone {
-      val reportVersion = fromCString(TF_Version())
-      println(s"Tensorflow version: ${reportVersion}")
+      val tfVersion = fromCString(TF_Version())
+      println(s"Tensorflow version: ${tfVersion}")
+      val swVersion = version(tfVersion)
+      val minVersion = version(tfMinVersion)
       assertTrue(
-        s"Looking for version: $tfVersion",
-        reportVersion.startsWith(tfVersion)
+        s"Looking for version: $tfMinVersion",
+        minVersion <= swVersion
       )
     }
   }
