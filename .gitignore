@@ -1,6 +1,9 @@
 # sbt
 target/
 
+# scala-cli
+/.scala-build/
+
 # metals
 /.bloop/
 /.metals/
