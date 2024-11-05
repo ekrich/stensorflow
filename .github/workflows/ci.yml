@@ -10,8 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-12]
-        java: [ '11', '17' ]
+        os: [ubuntu-22.04, macos-13]
+        java: [ '17' ]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout current branch (full)
@@ -22,6 +22,7 @@ jobs:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
           cache: 'sbt'
+    - uses: sbt/setup-sbt@v1
     - name: Setup (Linux)
       if: startsWith(matrix.os, 'ubuntu')
       run: |
