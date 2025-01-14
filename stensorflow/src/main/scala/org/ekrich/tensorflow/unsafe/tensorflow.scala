@@ -1061,7 +1061,7 @@ object tensorflow {
   ): Unit = extern
 
   /** Sets `value` to the binary-serialized TensorShapeProto of the value of
-   *  `attr_name` attribute of `oper`'.
+   *  `attr_name` attribute of `oper` '.
    */
   def TF_OperationGetAttrTensorShapeProto(
       oper: Ptr[TF_Operation],
@@ -1146,7 +1146,7 @@ object tensorflow {
 
   /** Write out a serialized representation of `graph` (as a GraphDef protocol
    *  message) to `output_graph_def` (allocated by TF_NewBuffer()).
-   *  `output_graph_def`'s underlying buffer will be freed when
+   *  `output_graph_def` 's underlying buffer will be freed when
    *  TF_DeleteBuffer() is called.
    *
    *  May fail on very large graphs in the future.
@@ -1387,10 +1387,10 @@ object tensorflow {
   ): Unit = extern
 
   /** Adds a copy of function `func` and optionally its gradient function `grad`
-   *  to `g`. Once `func`/`grad` is added to `g`, it can be called by creating
-   *  an operation using the function's name. Any changes to `func`/`grad`
+   *  to `g`. Once `func` /`grad` is added to `g`, it can be called by creating
+   *  an operation using the function's name. Any changes to `func` /`grad`
    *  (including deleting it) done after this method returns, won't affect the
-   *  copy of `func`/`grad` in `g`. If `func` or `grad` are already in `g`,
+   *  copy of `func` /`grad` in `g`. If `func` or `grad` are already in `g`,
    *  TF_GraphCopyFunction has no effect on them, but can establish the
    *  function->gradient relationship between them if `func` does not already
    *  have a gradient. If `func` already has a gradient different from `grad`,
@@ -1486,14 +1486,14 @@ object tensorflow {
       outputs: Ptr[TF_Output]
   ): Unit = extern
 
-  /** Frees `params`s resources without building a while loop. `params` is no
+  /** Frees `params` s resources without building a while loop. `params` is no
    *  longer valid after this returns. Either this or TF_FinishWhile() must be
    *  called after a successful TF_NewWhile() call.
    */
   def TF_AbortWhile(params: Ptr[TF_WhileParams]): Unit = extern
 
-  /** Adds operations to compute the partial derivatives of sum of `y`s w.r.t
-   *  `x`s, i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2...
+  /** Adds operations to compute the partial derivatives of sum of `y` s w.r.t
+   *  `x` s, i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2...
    *
    *  `dx` are used as initial gradients (which represent the symbolic partial
    *  derivatives of some loss function `L` w.r.t. `y`). `dx` must be nullptr or
@@ -1523,8 +1523,8 @@ object tensorflow {
       dy: Ptr[TF_Output]
   ): Unit = extern
 
-  /** Adds operations to compute the partial derivatives of sum of `y`s w.r.t
-   *  `x`s, i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2... This is a
+  /** Adds operations to compute the partial derivatives of sum of `y` s w.r.t
+   *  `x` s, i.e., d(y_1 + y_2 + ...)/dx_1, d(y_1 + y_2 + ...)/dx_2... This is a
    *  variant of TF_AddGradients that allows to caller to pass a custom name
    *  prefix to the operations added to a graph to compute the gradients.
    *
@@ -1678,8 +1678,8 @@ object tensorflow {
 
   /** Write out a serialized representation of `func` (as a FunctionDef protocol
    *  message) to `output_func_def` (allocated by TF_NewBuffer()).
-   *  `output_func_def`'s underlying buffer will be freed when TF_DeleteBuffer()
-   *  is called.
+   *  `output_func_def` 's underlying buffer will be freed when
+   *  TF_DeleteBuffer() is called.
    *
    *  May fail on very large graphs in the future.
    */
@@ -1737,7 +1737,7 @@ object tensorflow {
    *  doesn't depend on any graph inputs (this function is safe to call if this
    *  isn't the case though).
    *
-   *  If the evaluation is successful, this function returns true and `output`s
+   *  If the evaluation is successful, this function returns true and `output` s
    *  value is returned in `result`. Otherwise returns false. An error status is
    *  returned if something is wrong with the graph or input. Note that this may
    *  return false even if no error status is set.
