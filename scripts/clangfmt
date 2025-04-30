@@ -12,7 +12,7 @@
 set -euo pipefail
 
 # The minimum version of clang-format with the new options
-CLANG_FORMAT_VERSION=10
+CLANG_FORMAT_VERSION=15
 
 die() {
   while [ "$#" -gt 0 ]; do
