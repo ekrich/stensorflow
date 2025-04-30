@@ -11,8 +11,8 @@ jobs:
       - name: Install clang-format
         run: |
           sudo apt update
-          sudo apt install clang-format-10
+          sudo apt install clang-format-15
       - uses: actions/checkout@v4
       - run: ./scripts/check-lint.sh
         env:
-          CLANG_FORMAT_PATH: "/usr/bin/clang-format-10"
+          CLANG_FORMAT_PATH: "/usr/bin/clang-format-15"
