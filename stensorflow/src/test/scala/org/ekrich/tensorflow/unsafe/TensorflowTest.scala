@@ -13,7 +13,7 @@ import org.ekrich.tensorflow.unsafe.tensorflowEnums._
 
 class TensorflowTest {
 
-  val tfMinVersion = "2.20"
+  val tfMinVersion = "2.18"
 
   // major, minor
   case class Version(major: Int, minor: Int) extends Ordered[Version] {
